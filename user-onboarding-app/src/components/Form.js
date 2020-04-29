@@ -23,25 +23,35 @@ const TXT_INPUT = styled.input`
   display: block;
   width: 300px;
   padding: 12px 20px;
-  margin: 8px 0;
+  margin: 8px 0 4px;
   box-sizing: border-box;
   font-size: 16px;
 
 `;
 
+const ERROR_CONTAINER = styled.div`
+  height: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 4px;
+`;
+
 const P = styled.p`
   color: red;
+  font-size: 10px;
 `;
 
 const BUTTON = styled.button`
   background-color: #337ab7;
+  display: block;
   border: none;
-  border-radius: 8px;
+  border-radius: 4px;
   color: white;
   font-size: 16px;
-  padding: 8px 16px;
+  padding: 12px 40px;
   text-decoration: none;
-  margin: 20px auto 0 auto;
+  margin: 25px auto 10px;
   cursor: pointer;
   opacity: ${props => props.disabled ? 0.6 : 1}
 `;
@@ -133,7 +143,9 @@ const Form = () => {
             onChange={inputChange}
             value={formState.name} 
           />
-          {errors.name.length > 0 ? <P>{errors.name}</P> : null}
+          <ERROR_CONTAINER>
+            {errors.name.length > 0 ? <P>{errors.name}</P> : null}
+          </ERROR_CONTAINER>
         </LABEL>
         <LABEL htmlFor="email">
           Email
@@ -144,7 +156,9 @@ const Form = () => {
             onChange={inputChange}
             value={formState.email} 
           />
-          {errors.email.length > 0 ? <P>{errors.email}</P> : null}
+          <ERROR_CONTAINER>
+            {errors.email.length > 0 ? <P>{errors.email}</P> : null}
+          </ERROR_CONTAINER>
         </LABEL>
         <LABEL htmlFor="password">
           Password
@@ -155,7 +169,9 @@ const Form = () => {
             onChange={inputChange}
             value={formState.password}
           />
-          {errors.password.length > 0 ? <P>{errors.password}</P> : null}
+          <ERROR_CONTAINER>
+            {errors.password.length > 0 ? <P>{errors.password}</P> : null}
+          </ERROR_CONTAINER>
         </LABEL>
         <LABEL name="terms">
           <input
