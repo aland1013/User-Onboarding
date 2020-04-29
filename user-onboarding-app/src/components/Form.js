@@ -1,7 +1,50 @@
 import React, {useState, useEffect } from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
+import styled from 'styled-components';
 import UserList from './UserList';
+
+const FORM = styled.form`
+  border: 1px solid gray;
+  border-radius: 8px;
+  width: 350px;
+  margin: auto;
+  padding: 25px;
+  background-color: #f8f8f8;
+`;
+
+const LABEL = styled.label`
+  display: block;
+  width: 100%;
+  font-size: 20px;
+`;
+
+const TXT_INPUT = styled.input`
+  display: block;
+  width: 300px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  font-size: 16px;
+
+`;
+
+const P = styled.p`
+  color: red;
+`;
+
+const BUTTON = styled.button`
+  background-color: #337ab7;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin: 20px auto 0 auto;
+  cursor: pointer;
+  opacity: ${props => props.disabled ? 0.6 : 1}
+`;
 
 const Form = () => {
   const [formState, setFormState ] = useState({
@@ -74,42 +117,42 @@ const Form = () => {
 
   return (
     <>
-      <form onSubmit={formSubmit}>
-        <label htmlFor="name">
+      <FORM onSubmit={formSubmit}>
+        <LABEL htmlFor="name">
           Name
-          <input 
+          <TXT_INPUT 
             type="text" 
             name="name" 
             id="name"
             onChange={inputChange}
             value={formState.name} 
           />
-          {errors.name.length > 0 ? <p className="error">{errors.name}</p> : null}
-        </label>
-        <label htmlFor="email">
+          {errors.name.length > 0 ? <P>{errors.name}</P> : null}
+        </LABEL>
+        <LABEL htmlFor="email">
           Email
-          <input 
+          <TXT_INPUT 
             type="email" 
             name="email" 
             id="email"
             onChange={inputChange}
             value={formState.email} 
           />
-          {errors.email.length > 0 ? <p className="error">{errors.email}</p> : null}
-        </label>
-        <label htmlFor="password">
+          {errors.email.length > 0 ? <P>{errors.email}</P> : null}
+        </LABEL>
+        <LABEL htmlFor="password">
           Password
-          <input 
+          <TXT_INPUT 
             type="text" 
             name="password" 
             id="password" 
             onChange={inputChange}
             value={formState.password}
           />
-          {errors.password.length > 0 ? <p className="error">{errors.password}</p> : null}
-        </label>
-        <label name="terms">
-          <input 
+          {errors.password.length > 0 ? <P>{errors.password}</P> : null}
+        </LABEL>
+        <LABEL name="terms">
+          <input
             type="checkbox" 
             name="terms" 
             id="terms" 
@@ -117,9 +160,9 @@ const Form = () => {
             onChange={inputChange}
           />
           Terms & Conditions
-        </label>
-        <button type="submit" disabled={isButtonDisabled} >submit</button>
-      </form>
+        </LABEL>
+        <BUTTON type="submit" disabled={isButtonDisabled} >submit</BUTTON>
+      </FORM>
       <UserList users={users} />
     </>
   );
