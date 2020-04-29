@@ -1,6 +1,7 @@
 import React, {useState, useEffect } from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
+import UserList from './UserList';
 
 const Form = () => {
   const [formState, setFormState ] = useState({
@@ -20,6 +21,8 @@ const Form = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const [post, setPost] = useState([]);
+
+  const [users, setUsers] = useState([]);
 
   const formSchema = yup.object().shape({
     name: yup.string().required('name is a required field'),
@@ -48,6 +51,7 @@ const Form = () => {
       .then(response => {
         console.log(response.data);
         setPost(response.data);
+        setUsers([...users, response.data.name]);
         setFormState({
           name: '',
           email: '',
@@ -69,52 +73,55 @@ const Form = () => {
   }
 
   return (
-    <form onSubmit={formSubmit}>
-      <label htmlFor="name">
-        Name
-        <input 
-          type="text" 
-          name="name" 
-          id="name"
-          onChange={inputChange}
-          value={formState.name} 
-        />
-        {errors.name.length > 0 ? <p className="error">{errors.name}</p> : null}
-      </label>
-      <label htmlFor="email">
-        Email
-        <input 
-          type="email" 
-          name="email" 
-          id="email"
-          onChange={inputChange}
-          value={formState.email} 
-        />
-        {errors.email.length > 0 ? <p className="error">{errors.email}</p> : null}
-      </label>
-      <label htmlFor="password">
-        Password
-        <input 
-          type="text" 
-          name="password" 
-          id="password" 
-          onChange={inputChange}
-          value={formState.password}
-        />
-        {errors.password.length > 0 ? <p className="error">{errors.password}</p> : null}
-      </label>
-      <label name="terms">
-        <input 
-          type="checkbox" 
-          name="terms" 
-          id="terms" 
-          checked={formState.terms} 
-          onChange={inputChange}
-        />
-        Terms & Conditions
-      </label>
-      <button type="submit" disabled={isButtonDisabled} >submit</button>
-    </form>
+    <>
+      <form onSubmit={formSubmit}>
+        <label htmlFor="name">
+          Name
+          <input 
+            type="text" 
+            name="name" 
+            id="name"
+            onChange={inputChange}
+            value={formState.name} 
+          />
+          {errors.name.length > 0 ? <p className="error">{errors.name}</p> : null}
+        </label>
+        <label htmlFor="email">
+          Email
+          <input 
+            type="email" 
+            name="email" 
+            id="email"
+            onChange={inputChange}
+            value={formState.email} 
+          />
+          {errors.email.length > 0 ? <p className="error">{errors.email}</p> : null}
+        </label>
+        <label htmlFor="password">
+          Password
+          <input 
+            type="text" 
+            name="password" 
+            id="password" 
+            onChange={inputChange}
+            value={formState.password}
+          />
+          {errors.password.length > 0 ? <p className="error">{errors.password}</p> : null}
+        </label>
+        <label name="terms">
+          <input 
+            type="checkbox" 
+            name="terms" 
+            id="terms" 
+            checked={formState.terms} 
+            onChange={inputChange}
+          />
+          Terms & Conditions
+        </label>
+        <button type="submit" disabled={isButtonDisabled} >submit</button>
+      </form>
+      <UserList users={users} />
+    </>
   );
 }
 
