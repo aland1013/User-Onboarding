@@ -1,5 +1,6 @@
 import React, {useState, useEffect } from 'react';
 import * as yup from 'yup';
+import axios from 'axios';
 
 const Form = () => {
   const [formState, setFormState ] = useState({
@@ -17,6 +18,8 @@ const Form = () => {
   });
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  const [post, setPost] = useState([]);
 
   const formSchema = yup.object().shape({
     name: yup.string().required('name is a required field'),
@@ -39,6 +42,22 @@ const Form = () => {
     formSchema.isValid(formState).then(valid => setIsButtonDisabled(!valid));
   }, [formState]);
 
+  const formSubmit = (e) => {
+    e.preventDefault();
+    axios.post('https://reqres.in/api/users', formState)
+      .then(response => {
+        console.log(response.data);
+        setPost(response.data);
+        setFormState({
+          name: '',
+          email: '',
+          password: '',
+          terms: ''
+        });
+      })
+      .catch(err => console.log(err.response));
+  }
+
   const inputChange = (e) => {
     e.persist();
     const newFormData = {
@@ -50,7 +69,7 @@ const Form = () => {
   }
 
   return (
-    <form>
+    <form onSubmit={formSubmit}>
       <label htmlFor="name">
         Name
         <input 
