@@ -69,7 +69,13 @@ const Form = () => {
 
   const formSchema = yup.object().shape({
     name: yup.string().required('name is a required field'),
-    email: yup.string().email('must provide a valid email address').required('email is a required field'),
+    email: yup.string().email('must provide a valid email address')
+    .test('test', 'That email is already taken',
+      function(value) {
+        return value !== 'waffle@syrup.com';
+      }
+    )
+    .required('email is a required field'),
     password: yup.string().required('password is a required field'),
     terms: yup.boolean().oneOf([true], 'please agree to our terms')
   });
