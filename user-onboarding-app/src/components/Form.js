@@ -142,6 +142,7 @@ const Form = () => {
             id="name"
             onChange={inputChange}
             value={formState.name} 
+            data-cy="name"
           />
           <ERROR_CONTAINER>
             {errors.name.length > 0 ? <P>{errors.name}</P> : null}
