@@ -156,6 +156,7 @@ const Form = () => {
             id="email"
             onChange={inputChange}
             value={formState.email} 
+            data-cy="email"
           />
           <ERROR_CONTAINER>
             {errors.email.length > 0 ? <P>{errors.email}</P> : null}
@@ -169,6 +170,7 @@ const Form = () => {
             id="password" 
             onChange={inputChange}
             value={formState.password}
+            data-cy="password"
           />
           <ERROR_CONTAINER>
             {errors.password.length > 0 ? <P>{errors.password}</P> : null}
@@ -181,6 +183,7 @@ const Form = () => {
             id="terms" 
             checked={formState.terms} 
             onChange={inputChange}
+            data-cy="terms"
           />
           Terms & Conditions
         </LABEL>
