@@ -145,7 +145,7 @@ const Form = () => {
             data-cy="name"
           />
           <ERROR_CONTAINER>
-            {errors.name.length > 0 ? <P>{errors.name}</P> : null}
+            {errors.name.length > 0 ? <P data-cy="name-error-p">{errors.name}</P> : null}
           </ERROR_CONTAINER>
         </LABEL>
         <LABEL htmlFor="email">
@@ -159,7 +159,7 @@ const Form = () => {
             data-cy="email"
           />
           <ERROR_CONTAINER>
-            {errors.email.length > 0 ? <P>{errors.email}</P> : null}
+            {errors.email.length > 0 ? <P data-cy="email-error-p">{errors.email}</P> : null}
           </ERROR_CONTAINER>
         </LABEL>
         <LABEL htmlFor="password">
@@ -187,7 +187,13 @@ const Form = () => {
           />
           Terms & Conditions
         </LABEL>
-        <BUTTON type="submit" disabled={isButtonDisabled} >submit</BUTTON>
+        <BUTTON 
+          type="submit" 
+          disabled={isButtonDisabled} 
+          data-cy="button"
+        >
+          submit
+        </BUTTON>
       </FORM>
       <UserList users={users} />
     </>
